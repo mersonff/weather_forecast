@@ -37,7 +37,9 @@
         <header class="forecast__header">
           <div>
             <h2 class="forecast__address"><%= @result.location.address %></h2>
-            <p class="forecast__zip"><%= t("forecasts.postal_code", zip: forecast.zip) %></p>
+            <% if forecast.zip.present? %>
+              <p class="forecast__zip"><%= t("forecasts.postal_code", zip: forecast.zip) %></p>
+            <% end %>
           </div>
           <% if @result.from_cache? %>
             <span class="badge badge--cache" title="<%= t("forecasts.badges.cached_title") %>"><%= t("forecasts.badges.cached") %></span>

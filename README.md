@@ -42,8 +42,9 @@ docker compose run --rm web bundle exec rspec
 
 ## Notes & next steps
 
-- Postal code is required (it is the cache key), so a vague landmark that the
-  geocoder can't resolve to one is reported as not found.
+- The forecast is cached by postal code when the geocoder returns one; for
+  broader queries (e.g. a city, which has no single postal code) it falls back to
+  a normalized coordinate key, so city-level searches still work.
 - The in-memory cache is per-process; a shared store (Redis / Solid Cache) would
   be the production choice.
 - With more time: recent-searches history (a real use for a database), a unit

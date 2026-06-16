@@ -31,13 +31,14 @@ RSpec.describe Weather::Geocoding do
     expect { geocoding.call("nowhere at all") }.to raise_error(Weather::AddressNotFound)
   end
 
-  it "raises AddressNotFound when the match has no postal code" do
+  it "returns a Location with a nil zip when the match has no postal code" do
     Geocoder::Lookup::Test.add_stub(
-      "middle of the ocean",
-      [ { "latitude" => 0.0, "longitude" => 0.0 } ]
+      "São Paulo, São Paulo",
+      [ { "latitude" => -23.55, "longitude" => -46.63 } ]
     )
 
-    expect { geocoding.call("middle of the ocean") }
-      .to raise_error(Weather::AddressNotFound, /postal code/)
+    location = geocoding.call("São Paulo, São Paulo")
+
+    expect(location).to have_attributes(zip: nil, latitude: -23.55, longitude: -46.63)
   end
 end

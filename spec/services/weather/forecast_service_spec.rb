@@ -46,6 +46,17 @@ RSpec.describe Weather::ForecastService do
     expect(client).to have_received(:call).once
   end
 
+  it "caches by coordinates when the location has no postal code" do
+    city = Weather::Location.new(address: "São Paulo", zip: nil, latitude: -23.55, longitude: -46.63)
+    allow(geocoding).to receive(:call).and_return(city)
+
+    service.call("São Paulo")
+    result = service.call("São Paulo")
+
+    expect(result.from_cache?).to be(true)
+    expect(client).to have_received(:call).once
+  end
+
   it "does not swallow geocoding errors" do
     allow(geocoding).to receive(:call).and_raise(Weather::AddressNotFound)
 

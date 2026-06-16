@@ -14,7 +14,7 @@ module Weather
 
     def call(address)
       location = geocode(address)
-      key = forecast_cache_key(location.zip)
+      key = forecast_cache_key(location)
 
       if (cached = @cache.read(key))
         return Result.new(location:, forecast: cached, from_cache: true)
@@ -37,8 +37,9 @@ module Weather
       end
     end
 
-    def forecast_cache_key(zip)
-      "weather/forecast/#{zip}/#{@unit}"
+    def forecast_cache_key(location)
+      region = location.zip.presence || format("%.2f,%.2f", location.latitude, location.longitude)
+      "weather/forecast/#{region}/#{@unit}"
     end
 
     def geocode_cache_key(address)

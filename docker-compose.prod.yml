@@ -1,0 +1,14 @@
+services:
+  web:
+    image: weather_forecast:prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?set SECRET_KEY_BASE, e.g. export SECRET_KEY_BASE=$(openssl rand -hex 64)}
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_LOG_TO_STDOUT: "true"
+    restart: unless-stopped

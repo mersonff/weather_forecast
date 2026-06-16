@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.open-meteo.com/v1/forecast?current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&forecast_days=5&latitude=40.748&longitude=-73.985&temperature_unit=fahrenheit&timezone=auto
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 15 Jun 2026 13:37:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJsYXRpdHVkZSI6NDAuNzM2NDEyLCJsb25naXR1ZGUiOi03My45ODQxLCJnZW5lcmF0aW9udGltZV9tcyI6MC4wNzk1MTI1OTYxMzAzNzExLCJ1dGNfb2Zmc2V0X3NlY29uZHMiOi0xNDQwMCwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwidGltZXpvbmVfYWJicmV2aWF0aW9uIjoiR01ULTQiLCJlbGV2YXRpb24iOjMxLjAsImN1cnJlbnRfdW5pdHMiOnsidGltZSI6Imlzbzg2MDEiLCJpbnRlcnZhbCI6InNlY29uZHMiLCJ0ZW1wZXJhdHVyZV8ybSI6IsKwRiJ9LCJjdXJyZW50Ijp7InRpbWUiOiIyMDI2LTA2LTE1VDA5OjMwIiwiaW50ZXJ2YWwiOjkwMCwidGVtcGVyYXR1cmVfMm0iOjY5LjB9LCJkYWlseV91bml0cyI6eyJ0aW1lIjoiaXNvODYwMSIsInRlbXBlcmF0dXJlXzJtX21heCI6IsKwRiIsInRlbXBlcmF0dXJlXzJtX21pbiI6IsKwRiJ9LCJkYWlseSI6eyJ0aW1lIjpbIjIwMjYtMDYtMTUiLCIyMDI2LTA2LTE2IiwiMjAyNi0wNi0xNyIsIjIwMjYtMDYtMTgiLCIyMDI2LTA2LTE5Il0sInRlbXBlcmF0dXJlXzJtX21heCI6Wzc5LjUsODAuMiw3OS4yLDk0LjIsODcuN10sInRlbXBlcmF0dXJlXzJtX21pbiI6WzY1LjMsNTQuOSw2NC43LDcwLjQsNzAuNF19fQ==
+  recorded_at: Mon, 15 Jun 2026 13:37:29 GMT
+recorded_with: VCR 6.4.0

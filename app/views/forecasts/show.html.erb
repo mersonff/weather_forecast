@@ -1,0 +1,74 @@
+<div class="page">
+  <header class="topbar">
+    <h1><%= t("forecasts.title") %></h1>
+    <nav class="locales">
+      <% I18n.available_locales.each do |locale| %>
+        <%= link_to locale.to_s.upcase, url_for(locale: locale, address: @address),
+              class: "locale#{' locale--active' if I18n.locale == locale}" %>
+      <% end %>
+    </nav>
+  </header>
+
+  <p class="subtitle"><%= t("forecasts.subtitle") %></p>
+
+  <%= form_with url: root_path, method: :get, class: "search",
+        data: {
+          turbo_frame: "forecast",
+          controller: "loading",
+          action: "turbo:submit-start->loading#start turbo:submit-end->loading#end"
+        } do |f| %>
+    <% unless I18n.locale == I18n.default_locale %>
+      <%= hidden_field_tag :locale, I18n.locale %>
+    <% end %>
+    <%= f.text_field :address,
+          value: @address,
+          placeholder: t("forecasts.placeholder"),
+          autofocus: true,
+          class: "search__input" %>
+    <%= f.submit t("forecasts.submit"), class: "search__button", data: { loading_target: "button" } %>
+  <% end %>
+
+  <%= turbo_frame_tag "forecast", data: { turbo_action: "advance" } do %>
+    <% if @error.present? %>
+      <p class="alert"><%= @error %></p>
+    <% elsif @result.present? %>
+      <% forecast = @result.forecast %>
+      <article class="forecast">
+        <header class="forecast__header">
+          <div>
+            <h2 class="forecast__address"><%= @result.location.address %></h2>
+            <p class="forecast__zip"><%= t("forecasts.postal_code", zip: forecast.zip) %></p>
+          </div>
+          <% if @result.from_cache? %>
+            <span class="badge badge--cache" title="<%= t("forecasts.badges.cached_title") %>"><%= t("forecasts.badges.cached") %></span>
+          <% else %>
+            <span class="badge badge--live" title="<%= t("forecasts.badges.live_title") %>"><%= t("forecasts.badges.live") %></span>
+          <% end %>
+        </header>
+
+        <p class="forecast__current"><%= temperature(forecast.current_temperature, forecast.unit) %></p>
+        <p class="forecast__hilo">
+          <%= t("forecasts.high") %> <%= temperature(forecast.high, forecast.unit) %>
+          &middot;
+          <%= t("forecasts.low") %> <%= temperature(forecast.low, forecast.unit) %>
+        </p>
+
+        <% if forecast.daily.size > 1 %>
+          <h3 class="forecast__section"><%= t("forecasts.extended") %></h3>
+          <ul class="forecast__days">
+            <% forecast.daily.each do |day| %>
+              <li class="forecast__day">
+                <span class="forecast__day-date"><%= l(day.date, format: :day) %></span>
+                <span class="forecast__day-temps">
+                  <%= temperature(day.high, forecast.unit) %> / <%= temperature(day.low, forecast.unit) %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <p class="forecast__observed"><%= t("forecasts.observed_at", time: l(forecast.observed_at, format: :observed)) %></p>
+      </article>
+    <% end %>
+  <% end %>
+</div>

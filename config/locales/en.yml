@@ -1,0 +1,28 @@
+en:
+  forecasts:
+    title: "Weather Forecast"
+    subtitle: "Enter an address or postal code to see the current forecast."
+    placeholder: "e.g. 350 Fifth Ave, New York, NY"
+    submit: "Get forecast"
+    loading: "Loading…"
+    postal_code: "Postal code %{zip}"
+    high: "High"
+    low: "Low"
+    extended: "Extended forecast"
+    observed_at: "Observed at %{time}"
+    badges:
+      live: "Live"
+      live_title: "Freshly fetched from the provider"
+      cached: "Cached"
+      cached_title: "Served from the 30-minute cache"
+    errors:
+      not_found: "We couldn't find that location. Try adding a city, state, or postal code."
+      unavailable: "We couldn't retrieve the forecast right now. Please try again."
+  weather:
+    unit: fahrenheit
+  date:
+    formats:
+      day: "%a, %b %-d"
+  time:
+    formats:
+      observed: "%b %-d, %Y %H:%M"

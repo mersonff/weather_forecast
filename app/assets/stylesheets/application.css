@@ -1,0 +1,109 @@
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --live: #22c55e;
+  --cache: #f59e0b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+h1 { margin: 0 0 .25rem; font-size: 1.75rem; }
+.subtitle { margin: 0 0 1.5rem; color: var(--muted); }
+
+.locales { display: flex; gap: .5rem; }
+.locale {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 600;
+  padding: .2rem .5rem;
+  border-radius: .4rem;
+}
+.locale--active { color: var(--accent); background: rgba(56, 189, 248, .12); }
+
+.search { display: flex; gap: .5rem; margin-bottom: 1.5rem; }
+.search__input {
+  flex: 1;
+  padding: .7rem .9rem;
+  border: 1px solid #334155;
+  border-radius: .5rem;
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+.search__button {
+  padding: .7rem 1.1rem;
+  border: 0;
+  border-radius: .5rem;
+  background: var(--accent);
+  color: #082f49;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.alert {
+  padding: .8rem 1rem;
+  background: #7f1d1d;
+  border-radius: .5rem;
+}
+
+.forecast {
+  background: var(--card);
+  border-radius: .9rem;
+  padding: 1.5rem;
+}
+.forecast__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.forecast__address { margin: 0; font-size: 1.1rem; }
+.forecast__zip { margin: .15rem 0 0; color: var(--muted); font-size: .85rem; }
+
+.badge {
+  flex: none;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.badge--cache { background: rgba(245, 158, 11, .18); color: var(--cache); }
+.badge--live { background: rgba(34, 197, 94, .18); color: var(--live); }
+
+.forecast__current { margin: 1rem 0 0; font-size: 3rem; font-weight: 700; }
+.forecast__hilo { margin: .25rem 0 0; color: var(--muted); }
+
+.forecast__section { margin: 1.5rem 0 .5rem; font-size: .95rem; color: var(--muted); }
+.forecast__days { list-style: none; margin: 0; padding: 0; }
+.forecast__day {
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem 0;
+  border-top: 1px solid #334155;
+}
+.forecast__observed { margin: 1.25rem 0 0; color: var(--muted); font-size: .8rem; }

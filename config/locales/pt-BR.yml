@@ -1,0 +1,32 @@
+pt-BR:
+  forecasts:
+    title: "Previsão do Tempo"
+    subtitle: "Informe um endereço ou código postal para ver a previsão atual."
+    placeholder: "ex.: Avenida Paulista, 1578, São Paulo"
+    submit: "Buscar previsão"
+    loading: "Buscando…"
+    postal_code: "Código postal %{zip}"
+    high: "Máx."
+    low: "Mín."
+    extended: "Previsão estendida"
+    observed_at: "Medido em %{time}"
+    badges:
+      live: "Ao vivo"
+      live_title: "Recém-buscado do provedor"
+      cached: "Cache"
+      cached_title: "Servido do cache de 30 minutos"
+    errors:
+      not_found: "Não encontramos esse local. Tente incluir cidade, estado ou código postal."
+      unavailable: "Não foi possível obter a previsão agora. Tente novamente."
+  weather:
+    unit: celsius
+  date:
+    abbr_day_names: [dom, seg, ter, qua, qui, sex, sáb]
+    day_names: [domingo, segunda-feira, terça-feira, quarta-feira, quinta-feira, sexta-feira, sábado]
+    abbr_month_names: [~, jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez]
+    month_names: [~, janeiro, fevereiro, março, abril, maio, junho, julho, agosto, setembro, outubro, novembro, dezembro]
+    formats:
+      day: "%a, %-d %b"
+  time:
+    formats:
+      observed: "%-d %b %Y, %H:%M"

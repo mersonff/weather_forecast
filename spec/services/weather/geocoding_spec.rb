@@ -41,4 +41,17 @@ RSpec.describe Weather::Geocoding do
 
     expect(location).to have_attributes(zip: nil, latitude: -23.55, longitude: -46.63)
   end
+
+  it "falls back to the postal code when the full address has no match" do
+    full = "Valdir Leopercio Avenue, 550, Center, Banabuiu, 63960000, Brazil"
+    Geocoder::Lookup::Test.add_stub(full, [])
+    Geocoder::Lookup::Test.add_stub(
+      "63960000",
+      [ { "latitude" => -5.16, "longitude" => -38.65, "postal_code" => "63960-000" } ]
+    )
+
+    location = geocoding.call(full)
+
+    expect(location).to have_attributes(zip: "63960-000", latitude: -5.16, longitude: -38.65)
+  end
 end

@@ -42,6 +42,9 @@ docker compose run --rm web bundle exec rspec
 
 ## Notes & next steps
 
+- Geocoding resilience: if the geocoder can't resolve the full free-text address
+  (e.g. a street that OpenStreetMap doesn't map), it retries with the postal code
+  extracted from the input, which usually resolves to the right area.
 - The forecast is cached by postal code when the geocoder returns one; for
   broader queries (e.g. a city, which has no single postal code) it falls back to
   a normalized coordinate key, so city-level searches still work.

@@ -62,4 +62,16 @@ RSpec.describe Weather::ForecastService do
 
     expect { service.call("bad") }.to raise_error(Weather::AddressNotFound)
   end
+
+  it "writes the forecast to the cache once and reads it back on the next call" do
+    key = "weather/forecast/10118/#{Weather::Client::DEFAULT_UNIT}"
+    allow(cache).to receive(:read).and_call_original
+    allow(cache).to receive(:write).and_call_original
+
+    service.call("somewhere")
+    service.call("somewhere")
+
+    expect(cache).to have_received(:write).with(key, forecast, expires_in: described_class::FORECAST_TTL).once
+    expect(cache).to have_received(:read).with(key).twice
+  end
 end

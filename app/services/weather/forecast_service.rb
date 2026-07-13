@@ -14,19 +14,14 @@ module Weather
 
     def call(address)
       location = geocode(address)
-      key = forecast_cache_key(location)
-
-      if (cached = @cache.read(key))
-        return Result.new(location:, forecast: cached, from_cache: true)
+      forecast, from_cache = read_or_fetch(forecast_cache_key(location)) do
+        @client.call(
+          latitude: location.latitude,
+          longitude: location.longitude,
+          zip: location.zip
+        )
       end
-
-      forecast = @client.call(
-        latitude: location.latitude,
-        longitude: location.longitude,
-        zip: location.zip
-      )
-      @cache.write(key, forecast, expires_in: FORECAST_TTL)
-      Result.new(location:, forecast:, from_cache: false)
+      Result.new(location:, forecast:, from_cache:)
     end
 
     private
@@ -34,6 +29,16 @@ module Weather
     def geocode(address)
       @cache.fetch(geocode_cache_key(address), expires_in: GEOCODE_TTL) do
         @geocoding.call(address)
+      end
+    end
+
+    def read_or_fetch(key)
+      if (cached = @cache.read(key))
+        [ cached, true ]
+      else
+        value = yield
+        @cache.write(key, value, expires_in: FORECAST_TTL)
+        [ value, false ]
       end
     end
 
